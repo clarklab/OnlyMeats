@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ONLYMEATS - Pitmaster Feed</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "error-container": "#93000a",
+                      "on-secondary-container": "#b5b4ba",
+                      "surface-container": "#1f2020",
+                      "on-tertiary-fixed-variant": "#454747",
+                      "secondary-fixed-dim": "#c6c6cb",
+                      "on-primary-fixed-variant": "#92030f",
+                      "surface": "#131313",
+                      "outline-variant": "#5a403e",
+                      "on-tertiary-container": "#d4d5d5",
+                      "on-primary-container": "#ffc8c2",
+                      "surface-container-lowest": "#0e0e0e",
+                      "inverse-primary": "#b52424",
+                      "on-secondary": "#2f3034",
+                      "secondary-fixed": "#e3e2e7",
+                      "on-secondary-fixed-variant": "#46464b",
+                      "secondary-container": "#46464b",
+                      "primary-fixed-dim": "#ffb4ac",
+                      "tertiary-fixed-dim": "#c6c6c7",
+                      "on-tertiary": "#2f3131",
+                      "surface-variant": "#353535",
+                      "inverse-surface": "#e5e2e1",
+                      "on-error": "#690005",
+                      "surface-container-highest": "#353535",
+                      "background": "#131313",
+                      "on-error-container": "#ffdad6",
+                      "inverse-on-surface": "#303030",
+                      "on-primary-fixed": "#410003",
+                      "on-secondary-fixed": "#1a1b1f",
+                      "on-surface": "#e5e2e1",
+                      "on-surface-variant": "#e2beba",
+                      "primary": "#ffb4ac",
+                      "outline": "#aa8986",
+                      "surface-container-high": "#2a2a2a",
+                      "tertiary-container": "#5b5c5c",
+                      "primary-container": "#b22222",
+                      "on-primary": "#690007",
+                      "surface-tint": "#ffb4ac",
+                      "primary-fixed": "#ffdad6",
+                      "secondary": "#c6c6cb",
+                      "surface-bright": "#393939",
+                      "on-tertiary-fixed": "#1a1c1c",
+                      "surface-container-low": "#1b1c1c",
+                      "tertiary-fixed": "#e2e2e2",
+                      "tertiary": "#c6c6c7",
+                      "error": "#ffb4ab",
+                      "on-background": "#e5e2e1",
+                      "surface-dim": "#131313"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "base": "8px",
+                      "md": "24px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "lg": "48px",
+                      "xl": "80px",
+                      "xs": "4px",
+                      "gutter": "16px"
+              },
+              "fontFamily": {
+                      "technical-data": ["JetBrains Mono"],
+                      "body-md": ["Hanken Grotesk"],
+                      "body-lg": ["Hanken Grotesk"],
+                      "headline-lg": ["Archivo Narrow"],
+                      "headline-md": ["Archivo Narrow"],
+                      "label-caps": ["JetBrains Mono"],
+                      "display-xl": ["Archivo Narrow"],
+                      "headline-lg-mobile": ["Archivo Narrow"]
+              },
+              "fontSize": {
+                      "technical-data": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                      "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                      "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                      "headline-lg": ["40px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                      "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                      "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                      "display-xl": ["64px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                      "headline-lg-mobile": ["32px", { "lineHeight": "1.1", "fontWeight": "700" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Grain overlay for cast iron texture */
+        .bg-cast-iron::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .brutal-btn {
+            box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 4px 0 rgba(0,0,0,1);
+        }
+        .brutal-btn:active {
+            box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 0px 0 rgba(0,0,0,1);
+            transform: translateY(4px);
+        }
+        .riveted-tag {
+            position: relative;
+        }
+        .riveted-tag::before, .riveted-tag::after {
+            content: "";
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background-color: #131313;
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .riveted-tag::before { left: 4px; }
+        .riveted-tag::after { right: 4px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background relative min-h-screen pb-24 pt-20 bg-cast-iron overflow-x-hidden">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 border-b-2 border-outline-variant dark:border-outline-variant bg-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center h-16 px-margin-mobile">
+<button class="text-primary dark:text-primary hover:bg-surface-container-highest transition-colors active:translate-y-0.5 active:translate-x-0.5 transition-all p-2 rounded" id="menu-btn">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<div class="font-headline-md text-headline-md tracking-tighter uppercase text-primary dark:text-primary border-2 border-primary px-2 py-1 rotate-[-2deg]">
+            ONLYMEATS
+        </div>
+<button class="text-primary dark:text-primary hover:bg-surface-container-highest transition-colors active:translate-y-0.5 active:translate-x-0.5 transition-all p-2 rounded">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- NavigationDrawer (Hidden by default, triggered by JS) -->
+<div class="fixed inset-y-0 left-0 z-[60] flex flex-col w-72 h-full rounded-r-none border-r-2 border-outline-variant bg-surface shadow-xl transform -translate-x-full transition-transform duration-200 ease-in-out" id="nav-drawer">
+<div class="p-4 border-b-2 border-outline-variant bg-surface-container-lowest">
+<div class="flex items-center gap-4">
+<img alt="Pitmaster Profile Photo" class="w-16 h-16 rounded-full border-2 border-primary object-cover" data-alt="A portrait of a rugged pitmaster wearing a leather apron, standing in front of a smoking offset smoker in an industrial backyard. The lighting is cinematic and gritty, with deep shadows and warm orange highlights from the fire, creating a highly textured, industrial brutalist aesthetic. The mood is serious and authoritative." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaCe6weE-fsxYSbgsVLKDzsIWCsQFC1BSkLjyb5SPLFV484FBNJ-roFC_R4o-0i3WyHLBYXJyHGemqUaFx5glZj2nLPeq_6TfTR2tMsOLNCkD8bemcPlJUnwvEurRy5l2Ny78bfMKmrPn8IExxQsK3UVcOS_R4pI2CcXHYRgiL4Ap8pGQgVonqJo76kf6RfW_MVincvbZYX08GGFVmLoUxCCurkrCF3Cn0YGGchQ_8h-uzGCNKTDlghiZd-G5geu_AmY16Tdx0jWnk"/>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary">Master BBQ</h2>
+<p class="font-technical-data text-technical-data text-on-surface-variant">Rank: Charcoal King</p>
+<p class="font-label-caps text-label-caps text-outline mt-1">Est. 2023</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 overflow-y-auto py-4 flex flex-col gap-2">
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">outdoor_grill</span>
+<span class="font-body-md text-body-md">My Pit</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">inventory</span>
+<span class="font-body-md text-body-md">Meat Inventory</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="font-body-md text-body-md">Friends</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-md text-body-md">Settings</span>
+</a>
+<a class="flex items-center gap-4 px-6 py-4 text-on-surface-variant hover:bg-surface-container-high transition-all duration-200 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span>
+<span class="font-body-md text-body-md">Help</span>
+</a>
+</nav>
+</div>
+<!-- Drawer Overlay -->
+<div class="fixed inset-0 bg-black/80 z-[55] hidden transition-opacity" id="drawer-overlay"></div>
+<!-- Main Content Canvas -->
+<main class="max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop py-md">
+<div class="mb-lg flex justify-between items-end border-b-4 border-surface-variant pb-2">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-primary tracking-tight uppercase">Live from the Pit</h1>
+<span class="font-technical-data text-technical-data text-outline-variant">SYS_UPTIME: 99.9%</span>
+</div>
+<!-- Feed Container -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-lg">
+<!-- Post Card 1 -->
+<article class="bg-surface-container border-2 border-secondary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col relative overflow-hidden group">
+<!-- Stamped Plate Header -->
+<header class="bg-surface-container-high border-b-2 border-secondary px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-technical-data text-technical-data text-on-surface">TX_Smoker_88</span>
+</div>
+<div class="font-label-caps text-label-caps text-outline-variant">T-MINUS 04:20:00</div>
+</header>
+<!-- Meat Image -->
+<div class="relative h-64 border-b-2 border-outline-variant overflow-hidden">
+<img alt="Smoked Brisket" class="w-full h-full object-cover grayscale-[20%] contrast-125 group-hover:scale-105 transition-transform duration-500" data-alt="A massive, perfectly barked beef brisket resting on a textured wooden cutting board, surrounded by butcher paper. The meat has a deep, charred black exterior with a slight sheen of rendered fat. The lighting is harsh and directional, emphasizing the rugged, tactile, industrial brutalist style of the scene. The background is a dark, out-of-focus metal smoker." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCI5SU9dteLt18vC1BO73vaM44PkzddFJCyqnqNzWi5388D58Hd5KJXcnH9tk1CPuQXZSrsVLam9VmibyKJ6mrwqfQeWg3YTSmZZiv7i5jB7c2xIiA0p0OXYm_K9PPtuRvCtlxkG7FqAHoSL8lP5bOFqaAP8TdbxctVsM3lxR-pTG4p_-6EMfXEyAUorSRaHNBUV5SEj3_VIJ5yf9cHXesPqAEJXLaXzC1LE2nCDCXQMKMO52AJc3XsIsLtv3zJm-x_0iqy2hjQN9J8"/>
+<!-- Passport Stamp Overlay -->
+<div class="absolute top-4 right-4 border-2 border-primary-container text-primary-container font-headline-md text-headline-md uppercase px-3 py-1 rotate-[15deg] bg-surface/50 backdrop-blur-sm mix-blend-hard-light" style="border-radius: 2px; border-style: dashed;">
+                        VERIFIED COOK
+                    </div>
+</div>
+<!-- Content & Tags -->
+<div class="p-4 flex-1 flex flex-col gap-4 bg-surface-container-lowest">
+<h2 class="font-headline-md text-headline-md text-on-surface">14hr Central Texas Brisket</h2>
+<div class="flex flex-wrap gap-3">
+<div class="riveted-tag border-2 border-outline-variant bg-surface-container px-4 py-1 flex items-center font-label-caps text-label-caps text-on-surface tracking-widest rounded">
+                            GRADE: PRIME
+                        </div>
+<div class="riveted-tag border-2 border-outline-variant bg-surface-container px-4 py-1 flex items-center font-label-caps text-label-caps text-on-surface tracking-widest rounded">
+                            WOOD: POST OAK
+                        </div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mt-2">
+                        Pushed through the stall at 165°F. Wrapped in tallow-soaked peach paper. Resting in the cambro until sundown.
+                    </p>
+</div>
+<!-- Action Bar -->
+<div class="p-4 border-t-2 border-surface-variant bg-surface-container grid grid-cols-2 gap-4">
+<button class="brutal-btn bg-surface border-2 border-outline text-on-surface font-headline-md text-[18px] py-2 flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors rounded">
+<span class="material-symbols-outlined text-primary" data-icon="local_fire_department">local_fire_department</span>
+                        SIZZLE (24)
+                    </button>
+<button class="brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-2 flex items-center justify-center gap-2 hover:bg-inverse-primary transition-colors rounded">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+                        RECIPE
+                    </button>
+</div>
+</article>
+<!-- Post Card 2 -->
+<article class="bg-surface-container border-2 border-secondary shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex flex-col relative overflow-hidden group">
+<header class="bg-surface-container-high border-b-2 border-secondary px-4 py-3 flex justify-between items-center">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="font-technical-data text-technical-data text-on-surface">RibRanger_01</span>
+</div>
+<div class="font-label-caps text-label-caps text-outline-variant">T-MINUS 02:15:00</div>
+</header>
+<div class="relative h-64 border-b-2 border-outline-variant overflow-hidden">
+<img alt="Smoked Ribs" class="w-full h-full object-cover grayscale-[10%] contrast-125 group-hover:scale-105 transition-transform duration-500" data-alt="A rack of glazed pork spare ribs glistening under harsh overhead light. The ribs have a deep mahogany color with slightly charred edges, resting on a heavy industrial metal grate. The scene has a dark, tactile, brutalist aesthetic with strong contrasts and a focus on the rugged texture of the meat and metal. Ambient smoke lingers in the dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRX8WwuQ-SHZmBSEfJmAdeo2fnnzE3LPbs5qtv_tfjWEd1w5AmoEUMfUO-25fh8qWdxnM5j5JAGvC6UoGARcM6XKH1wRvjlR6MRjtXOz_IIfTWnFwNdFOxOHYN2A8wU6MRV6JydBY2WKByS4xOg0Fs3p2L1E-5vXy1iDiIeQ-PdVinW6XzgrwkC6naJzpxO7Csg7K7J89OBThxCWlbNRtkA4PPQnMs0ErEgJh3k1uTJ06dlcGoetMa7reja58LlEnXB0EQ3MPgFZsy"/>
+</div>
+<div class="p-4 flex-1 flex flex-col gap-4 bg-surface-container-lowest">
+<h2 class="font-headline-md text-headline-md text-on-surface">Competition St. Louis Ribs</h2>
+<div class="flex flex-wrap gap-3">
+<div class="riveted-tag border-2 border-outline-variant bg-surface-container px-4 py-1 flex items-center font-label-caps text-label-caps text-on-surface tracking-widest rounded">
+                            CUT: PORK SPARE
+                        </div>
+<div class="riveted-tag border-2 border-outline-variant bg-surface-container px-4 py-1 flex items-center font-label-caps text-label-caps text-on-surface tracking-widest rounded">
+                            WOOD: HICKORY
+                        </div>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 mt-2">
+                        Running the 3-2-1 method but dialed back the wrap time. Glaze is setting up nice and sticky.
+                    </p>
+</div>
+<div class="p-4 border-t-2 border-surface-variant bg-surface-container grid grid-cols-2 gap-4">
+<button class="brutal-btn bg-surface border-2 border-outline text-on-surface font-headline-md text-[18px] py-2 flex items-center justify-center gap-2 hover:bg-surface-variant transition-colors rounded">
+<span class="material-symbols-outlined text-outline" data-icon="local_fire_department">local_fire_department</span>
+                        SIZZLE (89)
+                    </button>
+<button class="brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-2 flex items-center justify-center gap-2 hover:bg-inverse-primary transition-colors rounded">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+                        RECIPE
+                    </button>
+</div>
+</article>
+</div>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-safe bg-surface-container border-t-2 border-outline-variant z-50">
+<!-- Feed (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1.5 border-2 border-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+<span class="font-label-caps text-label-caps mt-1">Feed</span>
+</a>
+<!-- Passport (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">workspace_premium</span>
+<span class="font-label-caps text-label-caps mt-1">Passport</span>
+</a>
+<!-- Map (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-caps text-label-caps mt-1">Map</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple drawer toggle logic
+        const menuBtn = document.getElementById('menu-btn');
+        const drawer = document.getElementById('nav-drawer');
+        const overlay = document.getElementById('drawer-overlay');
+
+        function toggleDrawer() {
+            const isClosed = drawer.classList.contains('-translate-x-full');
+            if (isClosed) {
+                drawer.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+                // brief delay to allow display:block to apply before fading in
+                setTimeout(() => overlay.classList.add('opacity-100'), 10);
+            } else {
+                drawer.classList.add('-translate-x-full');
+                overlay.classList.remove('opacity-100');
+                setTimeout(() => overlay.classList.add('hidden'), 200); // wait for transition
+            }
+        }
+
+        menuBtn.addEventListener('click', toggleDrawer);
+        overlay.addEventListener('click', toggleDrawer);
+    </script>
+</body></html>

@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pit Boss Profile - ONLYMEATS</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Archivo Narrow, JetBrains Mono, Hanken Grotesk -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Guidelines -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "error-container": "#93000a",
+                    "on-secondary-container": "#b5b4ba",
+                    "surface-container": "#1f2020",
+                    "on-tertiary-fixed-variant": "#454747",
+                    "secondary-fixed-dim": "#c6c6cb",
+                    "on-primary-fixed-variant": "#92030f",
+                    "surface": "#131313",
+                    "outline-variant": "#5a403e",
+                    "on-tertiary-container": "#d4d5d5",
+                    "on-primary-container": "#ffc8c2",
+                    "surface-container-lowest": "#0e0e0e",
+                    "inverse-primary": "#b52424",
+                    "on-secondary": "#2f3034",
+                    "secondary-fixed": "#e3e2e7",
+                    "on-secondary-fixed-variant": "#46464b",
+                    "secondary-container": "#46464b",
+                    "primary-fixed-dim": "#ffb4ac",
+                    "tertiary-fixed-dim": "#c6c6c7",
+                    "on-tertiary": "#2f3131",
+                    "surface-variant": "#353535",
+                    "inverse-surface": "#e5e2e1",
+                    "on-error": "#690005",
+                    "surface-container-highest": "#353535",
+                    "background": "#131313",
+                    "on-error-container": "#ffdad6",
+                    "inverse-on-surface": "#303030",
+                    "on-primary-fixed": "#410003",
+                    "on-secondary-fixed": "#1a1b1f",
+                    "on-surface": "#e5e2e1",
+                    "on-surface-variant": "#e2beba",
+                    "primary": "#ffb4ac",
+                    "outline": "#aa8986",
+                    "surface-container-high": "#2a2a2a",
+                    "tertiary-container": "#5b5c5c",
+                    "primary-container": "#b22222",
+                    "on-primary": "#690007",
+                    "surface-tint": "#ffb4ac",
+                    "primary-fixed": "#ffdad6",
+                    "secondary": "#c6c6cb",
+                    "surface-bright": "#393939",
+                    "on-tertiary-fixed": "#1a1c1c",
+                    "surface-container-low": "#1b1c1c",
+                    "tertiary-fixed": "#e2e2e2",
+                    "tertiary": "#c6c6c7",
+                    "error": "#ffb4ab",
+                    "on-background": "#e5e2e1",
+                    "surface-dim": "#131313"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "base": "8px",
+                    "md": "24px",
+                    "margin-desktop": "64px",
+                    "margin-mobile": "20px",
+                    "lg": "48px",
+                    "xl": "80px",
+                    "xs": "4px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "technical-data": ["JetBrains Mono"],
+                    "body-md": ["Hanken Grotesk"],
+                    "body-lg": ["Hanken Grotesk"],
+                    "headline-lg": ["Archivo Narrow"],
+                    "headline-md": ["Archivo Narrow"],
+                    "label-caps": ["JetBrains Mono"],
+                    "display-xl": ["Archivo Narrow"],
+                    "headline-lg-mobile": ["Archivo Narrow"]
+            },
+            "fontSize": {
+                    "technical-data": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                    "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                    "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                    "headline-lg": ["40px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                    "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                    "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                    "display-xl": ["64px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                    "headline-lg-mobile": ["32px", { "lineHeight": "1.1", "fontWeight": "700" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Base textural grain for industrial feel */
+        body {
+            background-color: #131313;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+            background-size: 8px 8px;
+        }
+        /* Hide scrollbar for cleaner look on technical layouts */
+        ::-webkit-scrollbar { display: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface font-body-md min-h-screen flex flex-col antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary fixed top-0 w-full z-50 border-b-2 border-outline-variant dark:border-outline-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex justify-between items-center h-16 px-margin-mobile">
+<button aria-label="Menu" class="flex items-center justify-center w-12 h-12 text-on-surface-variant hover:bg-surface-container-highest transition-colors active:translate-y-0.5 active:translate-x-0.5">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">menu</span>
+</button>
+<h1 class="font-headline-md text-headline-md tracking-tighter uppercase text-primary dark:text-primary border-2 border-primary px-2 py-1 rotate-[-2deg]">
+            ONLYMEATS
+        </h1>
+<button aria-label="Notifications" class="flex items-center justify-center w-12 h-12 text-on-surface-variant hover:bg-surface-container-highest transition-colors active:translate-y-0.5 active:translate-x-0.5">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 pt-24 pb-32 px-margin-mobile md:px-margin-desktop max-w-[1200px] mx-auto w-full flex flex-col gap-lg">
+<!-- Profile Identity Plate -->
+<section class="relative bg-surface-container border-2 border-outline-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col md:flex-row items-center gap-md">
+<!-- Avatar Frame -->
+<div class="relative w-32 h-32 shrink-0 border-4 border-surface-variant shadow-[inset_0px_0px_10px_rgba(0,0,0,0.8)] bg-surface-container-lowest overflow-hidden">
+<img alt="Pitmaster Avatar" class="w-full h-full object-cover filter grayscale contrast-125" data-alt="A gritty, high-contrast, black and white portrait of a rugged pitmaster wearing a canvas apron. The subject is standing near an outdoor smoker, illuminated by harsh, directional sunlight that highlights the texture of their clothing and facial features. The overall mood is serious, authoritative, and strictly industrial brutalist." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0kqtiKu3aTW0kgQ1KZpYriHRD4j5d56Gj7jfSr4UbK8ayOhDYM37TQVl5xkvBvZwNRr2mDogEJwHia88_YNMeW2OXv8gGas89aFizMKzIlroLVtWiOarpwLpiDFQuT40mVZrc3M4D5od-P64PRzW2ln9He1MMstc4l1bADZ_hByFZPAo_RmG5w6hsH9yPB6nuzd231igHZJadU559DhsQDW6Gm7yU4A2y0RWE2NyHSdxkrI9k2N0116ehU59fZ5BdHQgW61FgqTkL"/>
+</div>
+<!-- Hand-stamped Badge overlay -->
+<div class="absolute top-md left-md md:-top-sm md:-left-sm transform rotate-[-15deg] border-2 border-error text-error font-label-caps text-label-caps px-2 py-1 bg-surface shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] flex items-center gap-1 z-10 mix-blend-screen opacity-90">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">verified</span>
+                CERTIFIED
+            </div>
+<!-- Identity Data -->
+<div class="flex flex-col flex-1 text-center md:text-left">
+<h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface uppercase tracking-tight">Master BBQ</h2>
+<div class="flex items-center justify-center md:justify-start gap-2 mt-base">
+<span class="material-symbols-outlined text-primary text-[18px]">local_fire_department</span>
+<span class="font-technical-data text-technical-data text-primary">RANK: CHARCOAL KING</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm max-w-lg">
+                    Believes low and slow is the only way to go. Primarily smoking brisket, ribs, and the occasional pork butt. Wood preference: Post Oak &amp; Hickory.
+                </p>
+</div>
+</section>
+<!-- Spec Sheets (Stats Bento Grid) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Stat Block 1 -->
+<div class="bg-surface border-2 border-outline-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col justify-between group hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start border-b-2 border-surface-variant pb-base mb-base">
+<span class="font-label-caps text-label-caps text-on-surface-variant">LBS SMOKED (LIFETIME)</span>
+<span class="material-symbols-outlined text-outline">scale</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-xl text-display-xl text-on-surface tracking-tighter">4,250</span>
+<span class="font-technical-data text-technical-data text-primary">LBS</span>
+</div>
+</div>
+<!-- Stat Block 2 -->
+<div class="bg-surface border-2 border-outline-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col justify-between group hover:bg-surface-container-low transition-colors">
+<div class="flex justify-between items-start border-b-2 border-surface-variant pb-base mb-base">
+<span class="font-label-caps text-label-caps text-on-surface-variant">YEARS AT PIT</span>
+<span class="material-symbols-outlined text-outline">history</span>
+</div>
+<div class="flex items-baseline gap-2">
+<span class="font-display-xl text-display-xl text-on-surface tracking-tighter">08</span>
+<span class="font-technical-data text-technical-data text-primary">YRS</span>
+</div>
+</div>
+<!-- Stat Block 3 (Action Block) -->
+<div class="bg-surface-container-highest border-2 border-outline shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col justify-center items-center gap-base text-center cursor-pointer hover:bg-surface-variant transition-colors group">
+<span class="material-symbols-outlined text-primary text-[48px] group-hover:scale-110 transition-transform">add_circle</span>
+<span class="font-label-caps text-label-caps text-on-surface">LOG NEW COOK</span>
+</div>
+</section>
+<!-- Hardware Inventory (Gear) -->
+<section class="flex flex-col gap-base">
+<div class="flex items-center gap-sm border-b-2 border-outline-variant pb-xs mb-sm">
+<span class="material-symbols-outlined text-on-surface">outdoor_grill</span>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-tight">Hardware Inventory</h3>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Hardware Card 1 -->
+<div class="bg-surface-container-lowest border-2 border-surface-variant p-sm flex items-center gap-md relative overflow-hidden">
+<!-- Deco Rivets -->
+<div class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="w-16 h-16 bg-surface border border-outline flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline text-[32px]">hardware</span>
+</div>
+<div class="flex flex-col">
+<span class="font-technical-data text-technical-data text-on-surface">OFFSET SMOKER</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Custom 250 Gallon Tank</span>
+<span class="font-label-caps text-label-caps text-primary mt-1">STATUS: ACTIVE</span>
+</div>
+</div>
+<!-- Hardware Card 2 -->
+<div class="bg-surface-container-lowest border-2 border-surface-variant p-sm flex items-center gap-md relative overflow-hidden opacity-80">
+<!-- Deco Rivets -->
+<div class="absolute top-2 left-2 w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="absolute bottom-2 left-2 w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="absolute top-2 right-2 w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="absolute bottom-2 right-2 w-1.5 h-1.5 rounded-full bg-outline-variant"></div>
+<div class="w-16 h-16 bg-surface border border-outline flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline text-[32px]">propane</span>
+</div>
+<div class="flex flex-col">
+<span class="font-technical-data text-technical-data text-on-surface">PELLET GRILL</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Traeger Pro 575</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1">STATUS: BACKUP</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Spice Cabinet (Tags) -->
+<section class="flex flex-col gap-base">
+<div class="flex items-center gap-sm border-b-2 border-outline-variant pb-xs mb-sm">
+<span class="material-symbols-outlined text-on-surface">kitchen</span>
+<h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-tight">Spice Cabinet</h3>
+</div>
+<div class="flex flex-wrap gap-sm">
+<!-- Tag 1 -->
+<div class="flex items-center gap-2 bg-surface border-2 border-outline-variant px-sm py-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="font-technical-data text-technical-data text-on-surface uppercase">Meat Church Holy Cow</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+<!-- Tag 2 -->
+<div class="flex items-center gap-2 bg-surface border-2 border-outline-variant px-sm py-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="font-technical-data text-technical-data text-on-surface uppercase">Killer Hogs BBQ Rub</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+<!-- Tag 3 -->
+<div class="flex items-center gap-2 bg-surface border-2 border-outline-variant px-sm py-1.5 shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+<span class="font-technical-data text-technical-data text-on-surface uppercase">Salt &amp; Coarse Pepper (50/50)</span>
+<span class="w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+<!-- Tag 4 -->
+<div class="flex items-center gap-2 bg-surface-container border-2 border-dashed border-outline px-sm py-1.5 text-on-surface-variant hover:text-on-surface cursor-pointer">
+<span class="material-symbols-outlined text-[16px]">add</span>
+<span class="font-technical-data text-technical-data uppercase">ADD RUB</span>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container dark:bg-surface-container text-primary dark:text-primary border-t-2 border-outline-variant fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-safe z-50">
+<!-- Tab 1: Feed -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">local_fire_department</span>
+<span class="font-label-caps text-label-caps mt-1">Feed</span>
+</a>
+<!-- Tab 2: Passport -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">workspace_premium</span>
+<span class="font-label-caps text-label-caps mt-1">Passport</span>
+</a>
+<!-- Tab 3: Map -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">map</span>
+<span class="font-label-caps text-label-caps mt-1">Map</span>
+</a>
+<!-- Tab 4: Profile (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1.5 border-2 border-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Anatomical Cut Map - ONLYMEATS</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:wght@700;800&amp;family=Hanken+Grotesk:wght@400;600&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "error-container": "#93000a",
+                        "on-secondary-container": "#b5b4ba",
+                        "surface-container": "#1f2020",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "secondary-fixed-dim": "#c6c6cb",
+                        "on-primary-fixed-variant": "#92030f",
+                        "surface": "#131313",
+                        "outline-variant": "#5a403e",
+                        "on-tertiary-container": "#d4d5d5",
+                        "on-primary-container": "#ffc8c2",
+                        "surface-container-lowest": "#0e0e0e",
+                        "inverse-primary": "#b52424",
+                        "on-secondary": "#2f3034",
+                        "secondary-fixed": "#e3e2e7",
+                        "on-secondary-fixed-variant": "#46464b",
+                        "secondary-container": "#46464b",
+                        "primary-fixed-dim": "#ffb4ac",
+                        "tertiary-fixed-dim": "#c6c6c7",
+                        "on-tertiary": "#2f3131",
+                        "surface-variant": "#353535",
+                        "inverse-surface": "#e5e2e1",
+                        "on-error": "#690005",
+                        "surface-container-highest": "#353535",
+                        "background": "#131313",
+                        "on-error-container": "#ffdad6",
+                        "inverse-on-surface": "#303030",
+                        "on-primary-fixed": "#410003",
+                        "on-secondary-fixed": "#1a1b1f",
+                        "on-surface": "#e5e2e1",
+                        "on-surface-variant": "#e2beba",
+                        "primary": "#ffb4ac",
+                        "outline": "#aa8986",
+                        "surface-container-high": "#2a2a2a",
+                        "tertiary-container": "#5b5c5c",
+                        "primary-container": "#b22222",
+                        "on-primary": "#690007",
+                        "surface-tint": "#ffb4ac",
+                        "primary-fixed": "#ffdad6",
+                        "secondary": "#c6c6cb",
+                        "surface-bright": "#393939",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "surface-container-low": "#1b1c1c",
+                        "tertiary-fixed": "#e2e2e2",
+                        "tertiary": "#c6c6c7",
+                        "error": "#ffb4ab",
+                        "on-background": "#e5e2e1",
+                        "surface-dim": "#131313"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "sm": "12px",
+                        "base": "8px",
+                        "md": "24px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "lg": "48px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "gutter": "16px"
+                    },
+                    fontFamily: {
+                        "technical-data": ["JetBrains Mono"],
+                        "body-md": ["Hanken Grotesk"],
+                        "body-lg": ["Hanken Grotesk"],
+                        "headline-lg": ["Archivo Narrow"],
+                        "headline-md": ["Archivo Narrow"],
+                        "label-caps": ["JetBrains Mono"],
+                        "display-xl": ["Archivo Narrow"],
+                        "headline-lg-mobile": ["Archivo Narrow"]
+                    },
+                    fontSize: {
+                        "technical-data": ["14px", { lineHeight: "1.4", fontWeight: "500" }],
+                        "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+                        "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+                        "headline-lg": ["40px", { lineHeight: "1.1", fontWeight: "700" }],
+                        "headline-md": ["24px", { lineHeight: "1.2", fontWeight: "700" }],
+                        "label-caps": ["12px", { lineHeight: "1.0", letterSpacing: "0.1em", fontWeight: "600" }],
+                        "display-xl": ["64px", { lineHeight: "1.0", letterSpacing: "-0.02em", fontWeight: "800" }],
+                        "headline-lg-mobile": ["32px", { lineHeight: "1.1", fontWeight: "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body {
+            background-color: #131313;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        /* Custom Scrollbar for brutalist feel */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #131313;
+            border-left: 2px solid #353535;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #5a403e;
+            border: 1px solid #131313;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased pt-16 pb-20 md:pb-0">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-surface border-b-2 border-outline-variant dark:border-outline-variant shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] fixed top-0 w-full z-50 flex justify-between items-center h-16 px-margin-mobile">
+<button class="text-primary dark:text-primary hover:bg-surface-container-highest transition-colors active:translate-y-0.5 active:translate-x-0.5 transition-all p-2 rounded-DEFAULT">
+<span class="material-symbols-outlined font-headline-md text-headline-md">menu</span>
+</button>
+<div class="font-headline-md text-headline-md tracking-tighter uppercase text-primary dark:text-primary border-2 border-primary px-2 py-1 rotate-[-2deg]">
+            ONLYMEATS
+        </div>
+<button class="text-primary dark:text-primary hover:bg-surface-container-highest transition-colors active:translate-y-0.5 active:translate-x-0.5 transition-all p-2 rounded-DEFAULT">
+<span class="material-symbols-outlined font-headline-md text-headline-md">notifications</span>
+</button>
+</header>
+<!-- Main Canvas -->
+<main class="flex-grow flex flex-col items-center w-full max-w-[1200px] mx-auto px-margin-mobile md:px-margin-desktop py-md md:py-lg gap-lg overflow-x-hidden">
+<!-- Header Section -->
+<section class="w-full text-center flex flex-col gap-sm">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase tracking-tight">Anatomical Cut Map</h1>
+<p class="font-technical-data text-technical-data text-on-surface-variant uppercase">Select a species to view blueprint</p>
+</section>
+<!-- Animal Toggles (Riveted Tags) -->
+<section class="flex gap-md justify-center w-full">
+<button class="relative bg-surface-container border-2 border-outline-variant text-on-surface font-label-caps text-label-caps px-md py-sm rounded-DEFAULT shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline-variant absolute left-2"></span>
+<span>BEEF</span>
+<span class="w-2 h-2 rounded-full bg-outline-variant absolute right-2"></span>
+</button>
+<button class="relative bg-primary-container border-2 border-primary text-on-primary-container font-label-caps text-label-caps px-md py-sm rounded-DEFAULT shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary absolute left-2"></span>
+<span>PORK</span>
+<span class="w-2 h-2 rounded-full bg-primary absolute right-2"></span>
+</button>
+<button class="relative bg-surface-container border-2 border-outline-variant text-on-surface font-label-caps text-label-caps px-md py-sm rounded-DEFAULT shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-outline-variant absolute left-2"></span>
+<span>POULTRY</span>
+<span class="w-2 h-2 rounded-full bg-outline-variant absolute right-2"></span>
+</button>
+</section>
+<!-- Blueprint Viewer -->
+<section class="w-full max-w-4xl relative border-2 border-secondary bg-surface-container-lowest shadow-[4px_4px_0px_0px_#c6c6cb] aspect-square md:aspect-video flex items-center justify-center overflow-hidden">
+<!-- Grid Lines Background -->
+<div class="absolute inset-0 opacity-20" style="background-image: linear-gradient(#c6c6cb 1px, transparent 1px), linear-gradient(90deg, #c6c6cb 1px, transparent 1px); background-size: 20px 20px;"></div>
+<!-- Blueprint Image Placeholder -->
+<img alt="Pork Cut Blueprint" class="w-full h-full object-contain absolute inset-0 opacity-80 mix-blend-screen filter grayscale" data-alt="A highly detailed, technical blueprint-style illustration of a pig anatomy. The image is rendered in bright cyan and white lines against a dark, industrial charcoal background, resembling an authentic CAD drawing or architectural blueprint. Specific meat cuts like the shoulder, loin, belly, and ham are distinctly separated by rigid geometric lines. The visual style is purely utilitarian, precise, and gritty, evoking the aesthetic of a professional butcher's manual or a heavy machinery schematic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDSznzMctBeKseidKyTHbs7VcD-kRz5WIMthyIyfnTz4fHyOZIW03wBKmDJdD4QrP8Q03VDxcqSY5KnPbxzAlhXkSu1lANrO3pBbYwxZ08znGJoPsPYUGMFykpxlY3Wq_ed0ZEorv_FbTebUzTcfrfgrxu7juC27RmqvqmelrhOcPIymSX6Wndeyh0vqBGtugOYKfhHDo3zkgSUdBtRzgepFMEvkZOVO0or_7NAtEnKf8bkpF3LAN7x1sab4ln8m1QHIDhvJNKU0RsN"/>
+<!-- Interactive Hotspots (Simulated) -->
+<div class="absolute top-1/4 left-1/3 w-16 h-16 border-2 border-primary border-dashed rounded-full animate-pulse flex items-center justify-center cursor-pointer bg-primary/20 backdrop-blur-sm">
+<span class="font-technical-data text-technical-data text-primary">LOIN</span>
+</div>
+<!-- Technical Overlay Info -->
+<div class="absolute top-4 left-4 font-technical-data text-technical-data text-secondary-fixed-dim bg-surface p-2 border border-outline-variant">
+                FIG. 1: SUS DOMESTICUS
+            </div>
+<div class="absolute bottom-4 right-4 font-technical-data text-technical-data text-secondary-fixed-dim bg-surface p-2 border border-outline-variant">
+                SCALE: 1:10
+            </div>
+</section>
+<!-- Selected Cut Info Panel (Bento Layout) -->
+<section class="w-full max-w-4xl grid grid-cols-1 md:grid-cols-3 gap-md mt-md">
+<!-- Stamp Status Card -->
+<div class="md:col-span-1 border-2 border-outline-variant bg-surface-container shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col items-center justify-center relative overflow-hidden group">
+<div class="absolute top-0 left-0 w-full h-1 bg-outline-variant"></div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-sm w-full border-b-2 border-outline-variant pb-2 text-center uppercase">Passport Stamp</h3>
+<!-- Authentic Stamp Graphic -->
+<div class="w-32 h-32 rounded-full border-4 border-primary text-primary flex flex-col items-center justify-center rotate-[-15deg] my-md group-hover:scale-110 transition-transform duration-300 relative">
+<span class="material-symbols-outlined text-[48px] mb-1">workspace_premium</span>
+<span class="font-headline-md text-[18px] uppercase tracking-widest font-bold">VERIFIED</span>
+<!-- Ink bleed effect -->
+<div class="absolute inset-0 rounded-full border-2 border-primary border-dashed opacity-50 scale-[1.05]"></div>
+</div>
+<p class="font-technical-data text-technical-data text-on-surface-variant text-center">Rank: <span class="text-primary font-bold">Master</span></p>
+<p class="font-technical-data text-[12px] text-on-surface-variant text-center mt-1">Acquired: 10/24/23</p>
+</div>
+<!-- Best Cook Stats -->
+<div class="md:col-span-2 border-2 border-outline-variant bg-surface-container shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] p-md flex flex-col relative">
+<div class="absolute top-0 right-0 w-8 h-8 bg-surface border-l-2 border-b-2 border-outline-variant flex items-center justify-center">
+<span class="w-2 h-2 rounded-full bg-outline-variant"></span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-md w-full border-b-2 border-outline-variant pb-2 uppercase flex justify-between items-end">
+<span>Target: PORK LOIN</span>
+<span class="font-technical-data text-technical-data text-primary">REC#: 4029</span>
+</h3>
+<div class="grid grid-cols-2 gap-sm mb-md">
+<div class="bg-surface shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] p-sm border border-surface-variant flex flex-col justify-between h-24">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Internal Temp</span>
+<div class="flex items-baseline justify-end gap-1">
+<span class="font-display-xl text-[48px] text-on-surface leading-none">145</span>
+<span class="font-technical-data text-technical-data text-primary">°F</span>
+</div>
+</div>
+<div class="bg-surface shadow-[inset_0_2px_4px_rgba(0,0,0,0.4)] p-sm border border-surface-variant flex flex-col justify-between h-24">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Rest Time</span>
+<div class="flex items-baseline justify-end gap-1">
+<span class="font-display-xl text-[48px] text-on-surface leading-none">15</span>
+<span class="font-technical-data text-technical-data text-primary">MIN</span>
+</div>
+</div>
+</div>
+<div class="mt-auto flex justify-end">
+<button class="bg-primary-container text-on-primary-container font-headline-md text-[16px] uppercase tracking-wider px-md py-sm border-2 border-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:translate-y-[2px] active:translate-x-[2px] active:shadow-none transition-all flex items-center gap-2">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+                        View Personal Best
+                    </button>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<nav class="md:hidden bg-surface-container dark:bg-surface-container border-t-2 border-outline-variant fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-safe z-50">
+<!-- Feed (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">local_fire_department</span>
+<span class="font-label-caps text-label-caps mt-1">Feed</span>
+</a>
+<!-- Passport (Active - Maps to "Stamp Status" / "Cut Map" intent) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1.5 border-2 border-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-caps text-label-caps mt-1">Passport</span>
+</a>
+<!-- Map (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">map</span>
+<span class="font-label-caps text-label-caps mt-1">Map</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</a>
+</nav>
+</body></html>

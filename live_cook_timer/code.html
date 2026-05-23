@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ONLYMEATS - Cook Timer</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&amp;family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "on-tertiary-fixed-variant": "#454747",
+                            "surface-container-highest": "#353535",
+                            "secondary-fixed": "#e3e2e7",
+                            "primary-fixed": "#ffdad6",
+                            "on-secondary-container": "#b5b4ba",
+                            "inverse-on-surface": "#303030",
+                            "on-surface-variant": "#e2beba",
+                            "on-primary-container": "#ffc8c2",
+                            "tertiary": "#c6c6c7",
+                            "surface-container-low": "#1b1c1c",
+                            "on-secondary-fixed-variant": "#46464b",
+                            "on-tertiary-fixed": "#1a1c1c",
+                            "on-secondary": "#2f3034",
+                            "on-primary-fixed": "#410003",
+                            "on-tertiary-container": "#d4d5d5",
+                            "surface-container-high": "#2a2a2a",
+                            "surface": "#131313",
+                            "background": "#131313",
+                            "on-primary": "#690007",
+                            "on-tertiary": "#2f3131",
+                            "on-background": "#e5e2e1",
+                            "tertiary-fixed-dim": "#c6c6c7",
+                            "outline-variant": "#5a403e",
+                            "on-error-container": "#ffdad6",
+                            "on-secondary-fixed": "#1a1b1f",
+                            "secondary": "#c6c6cb",
+                            "secondary-container": "#46464b",
+                            "tertiary-container": "#5b5c5c",
+                            "surface-bright": "#393939",
+                            "on-primary-fixed-variant": "#92030f",
+                            "primary-fixed-dim": "#ffb4ac",
+                            "primary-container": "#b22222",
+                            "on-surface": "#e5e2e1",
+                            "surface-container-lowest": "#0e0e0e",
+                            "secondary-fixed-dim": "#c6c6cb",
+                            "surface-dim": "#131313",
+                            "surface-tint": "#ffb4ac",
+                            "inverse-primary": "#b52424",
+                            "primary": "#ffb4ac",
+                            "error-container": "#93000a",
+                            "tertiary-fixed": "#e2e2e2",
+                            "error": "#ffb4ab",
+                            "outline": "#aa8986",
+                            "surface-container": "#1f2020",
+                            "surface-variant": "#353535",
+                            "inverse-surface": "#e5e2e1",
+                            "on-error": "#690005"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.125rem",
+                            "lg": "0.25rem",
+                            "xl": "0.5rem",
+                            "full": "0.75rem"
+                    },
+                    "spacing": {
+                            "margin-mobile": "20px",
+                            "lg": "48px",
+                            "margin-desktop": "64px",
+                            "gutter": "16px",
+                            "xs": "4px",
+                            "xl": "80px",
+                            "md": "24px",
+                            "base": "8px",
+                            "sm": "12px"
+                    },
+                    "fontFamily": {
+                            "headline-md": ["Archivo Narrow"],
+                            "display-xl": ["Archivo Narrow"],
+                            "technical-data": ["JetBrains Mono"],
+                            "body-md": ["Hanken Grotesk"],
+                            "body-lg": ["Hanken Grotesk"],
+                            "label-caps": ["JetBrains Mono"],
+                            "headline-lg": ["Archivo Narrow"],
+                            "headline-lg-mobile": ["Archivo Narrow"]
+                    },
+                    "fontSize": {
+                            "headline-md": ["24px", { "lineHeight": "1.2", "fontWeight": "700" }],
+                            "display-xl": ["64px", { "lineHeight": "1.0", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                            "technical-data": ["14px", { "lineHeight": "1.4", "fontWeight": "500" }],
+                            "body-md": ["16px", { "lineHeight": "1.5", "fontWeight": "400" }],
+                            "body-lg": ["18px", { "lineHeight": "1.6", "fontWeight": "400" }],
+                            "label-caps": ["12px", { "lineHeight": "1.0", "letterSpacing": "0.1em", "fontWeight": "600" }],
+                            "headline-lg": ["40px", { "lineHeight": "1.1", "fontWeight": "700" }],
+                            "headline-lg-mobile": ["32px", { "lineHeight": "1.1", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            /* Subtle cast iron grain texture overlay */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+        .debossed-surface {
+            box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.4);
+        }
+        .raised-plate {
+            border: 2px solid #8E8E93;
+            box-shadow: 4px 4px 0px 0px rgba(0,0,0,1);
+        }
+        .mechanical-btn {
+            box-shadow: inset 0 2px 0 rgba(255,255,255,0.2), 0 2px 0 rgba(0,0,0,0.5);
+        }
+        .mechanical-btn:active {
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
+            transform: translateY(2px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background min-h-screen pb-xl flex justify-center pt-16">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 border-b-2 border-outline-variant bg-surface shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+<div class="flex justify-between items-center h-16 px-margin-mobile w-full max-w-[1200px] mx-auto">
+<button class="text-on-surface-variant hover:bg-surface-container-highest transition-colors active:translate-y-0.5 active:translate-x-0.5 p-2 rounded-DEFAULT">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">arrow_back</span>
+</button>
+<div class="font-headline-md text-headline-md tracking-tighter uppercase text-primary border-2 border-primary px-2 py-1 rotate-[-2deg]">
+                ONLYMEATS
+            </div>
+<button class="text-on-surface-variant hover:bg-surface-container-highest transition-colors active:translate-y-0.5 active:translate-x-0.5 p-2 rounded-DEFAULT">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">more_vert</span>
+</button>
+</div>
+</header>
+<main class="w-full max-w-[1200px] px-margin-mobile md:px-margin-desktop py-lg flex flex-col gap-lg mt-8">
+<!-- Header / Status Plate -->
+<section class="raised-plate bg-surface-container p-md flex flex-col md:flex-row justify-between items-start md:items-center gap-md">
+<div>
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary uppercase">Brisket #042</h1>
+<p class="font-technical-data text-technical-data text-on-surface-variant mt-xs flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">outdoor_grill</span> 
+                    OFFSET SMOKER | HICKORY WOOD
+                </p>
+</div>
+<div class="bg-primary-container text-on-primary-container px-3 py-1 font-label-caps text-label-caps border border-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">verified</span> VERIFIED COOK
+            </div>
+</section>
+<!-- Main Timer Panel -->
+<section class="raised-plate bg-surface-container-high p-lg flex flex-col items-center justify-center relative overflow-hidden">
+<!-- Decorative corner rivets -->
+<div class="absolute top-4 left-4 w-2 h-2 rounded-full bg-tertiary-container shadow-inner"></div>
+<div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-tertiary-container shadow-inner"></div>
+<div class="absolute bottom-4 left-4 w-2 h-2 rounded-full bg-tertiary-container shadow-inner"></div>
+<div class="absolute bottom-4 right-4 w-2 h-2 rounded-full bg-tertiary-container shadow-inner"></div>
+<h2 class="font-label-caps text-label-caps text-on-surface-variant mb-4 tracking-[0.2em]">ELAPSED TIME</h2>
+<div class="debossed-surface bg-surface-lowest px-8 py-4 border-2 border-outline-variant flex items-center justify-center min-w-[280px]">
+<span class="font-display-xl text-display-xl text-primary font-technical-data tracking-widest tabular-nums text-center w-full" id="main-timer">08:45:12</span>
+</div>
+<p class="font-technical-data text-technical-data text-secondary mt-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-sm text-error">local_fire_department</span>
+                EST. REMAINING: ~4H 15M
+            </p>
+</section>
+<!-- Telemetry Grid -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Pit Temp -->
+<div class="raised-plate bg-surface-container p-md flex flex-col relative">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-2">PIT TEMP</h3>
+<div class="flex items-end gap-2">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">225°</span>
+<span class="font-technical-data text-technical-data text-on-surface-variant mb-1">F</span>
+</div>
+<!-- Trend Line Placeholder -->
+<div class="h-12 w-full mt-4 border-b border-outline-variant relative">
+<svg class="absolute bottom-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 40">
+<path d="M0,30 L20,25 L40,28 L60,15 L80,20 L100,22" fill="none" stroke="#ffb4ac" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+<span class="material-symbols-outlined absolute top-0 right-0 text-primary text-sm">trending_up</span>
+</div>
+</div>
+<!-- Current Internal -->
+<div class="raised-plate bg-surface-container p-md flex flex-col relative border-l-4 border-l-error">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-2">CURRENT INTERNAL</h3>
+<div class="flex items-end gap-2">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-error">165°</span>
+<span class="font-technical-data text-technical-data text-on-surface-variant mb-1">F</span>
+</div>
+<div class="mt-auto pt-4 flex items-center gap-2 text-error">
+<span class="material-symbols-outlined text-sm">warning</span>
+<span class="font-label-caps text-label-caps animate-pulse">THE STALL DETECTED</span>
+</div>
+</div>
+<!-- Target Internal -->
+<div class="raised-plate bg-surface-container p-md flex flex-col relative">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-2">TARGET INTERNAL</h3>
+<div class="flex items-end gap-2">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">203°</span>
+<span class="font-technical-data text-technical-data text-on-surface-variant mb-1">F</span>
+</div>
+<div class="w-full bg-surface-highest h-2 mt-auto relative">
+<div class="absolute top-0 left-0 h-full bg-primary" style="width: 81%;"></div>
+</div>
+<div class="font-technical-data text-technical-data text-right mt-1 text-on-surface-variant text-xs">81% REACHED</div>
+</div>
+</section>
+<!-- Cook Phases -->
+<section class="raised-plate bg-surface-container p-md flex flex-col">
+<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4">COOK PHASES</h3>
+<div class="flex flex-col gap-4 relative">
+<!-- Vertical timeline line -->
+<div class="absolute left-[11px] top-4 bottom-4 w-0.5 bg-outline-variant z-0"></div>
+<!-- Phase 1: Complete -->
+<div class="flex items-center gap-md relative z-10 opacity-60">
+<div class="w-6 h-6 rounded-full bg-primary flex items-center justify-center border-2 border-surface-container">
+<span class="material-symbols-outlined text-[14px] text-on-primary">check</span>
+</div>
+<div class="flex-1">
+<div class="font-headline-md text-headline-md text-on-surface">SMOKING</div>
+<div class="font-technical-data text-technical-data text-on-surface-variant">00:00:00 - 06:30:00</div>
+</div>
+</div>
+<!-- Phase 2: Active -->
+<div class="flex items-center gap-md relative z-10">
+<div class="w-6 h-6 rounded-full bg-surface-container border-2 border-primary flex items-center justify-center">
+<div class="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
+</div>
+<div class="flex-1">
+<div class="font-headline-md text-headline-md text-primary">WRAPPING (BUTCHER PAPER)</div>
+<div class="font-technical-data text-technical-data text-primary">06:30:00 - CURRENT</div>
+</div>
+</div>
+<!-- Phase 3: Pending -->
+<div class="flex items-center gap-md relative z-10 opacity-40">
+<div class="w-6 h-6 rounded-full bg-surface-container border-2 border-outline-variant flex items-center justify-center">
+</div>
+<div class="flex-1">
+<div class="font-headline-md text-headline-md text-on-surface">RESTING</div>
+<div class="font-technical-data text-technical-data text-on-surface-variant">PENDING TARGET TEMP</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Controls -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-md mt-4">
+<button class="mechanical-btn bg-surface-container border-2 border-outline-variant py-4 px-6 font-headline-md text-headline-md text-on-surface flex items-center justify-center gap-2 active:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+                ADD LOG NOTE
+            </button>
+<button class="mechanical-btn bg-surface-container border-2 border-outline-variant py-4 px-6 font-headline-md text-headline-md text-on-surface flex items-center justify-center gap-2 active:bg-surface-container-highest transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">alarm_add</span>
+                SET ALARM
+            </button>
+<button class="mechanical-btn bg-error-container border-2 border-error py-4 px-6 font-headline-md text-headline-md text-on-error-container flex items-center justify-center gap-2 active:bg-error transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">stop_circle</span>
+                STOP COOK
+            </button>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 border-t-2 border-outline-variant bg-surface-container md:hidden">
+<div class="fixed bottom-0 left-0 w-full h-20 flex justify-around items-center px-4 pb-safe">
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">local_fire_department</span>
+<span class="font-label-caps text-label-caps mt-1">Feed</span>
+</button>
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-xl px-4 py-1.5 border-2 border-primary shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">workspace_premium</span>
+<span class="font-label-caps text-label-caps mt-1">Passport</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">map</span>
+<span class="font-label-caps text-label-caps mt-1">Map</span>
+</button>
+<button class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:text-on-surface dark:hover:text-on-surface active:scale-95 transition-transform duration-100">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">person</span>
+<span class="font-label-caps text-label-caps mt-1">Profile</span>
+</button>
+</div>
+</nav>
+<script>
+        // Simple timer logic for visual effect
+        let seconds = 31512; // 08:45:12
+        const timerElement = document.getElementById('main-timer');
+        
+        setInterval(() => {
+            seconds++;
+            const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+            const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            timerElement.textContent = `${h}:${m}:${s}`;
+        }, 1000);
+    </script>
+</body></html>
