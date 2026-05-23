@@ -33,6 +33,17 @@
   function saveState() {
     try {
       localStorage.setItem(KEY, JSON.stringify(state));
+      // Mirror into the active account snapshot so sign-out preserves progress
+      if (state.user && state.user.id) {
+        try {
+          const list = getAccounts();
+          const i = list.findIndex((a) => a.id === state.user.id);
+          if (i >= 0) {
+            list[i].snapshot = JSON.parse(JSON.stringify(state));
+            saveAccounts(list);
+          }
+        } catch (e) {}
+      }
     } catch (e) {
       console.warn("[store] save failed", e);
     }
@@ -75,14 +86,92 @@
     return (prefix || "id") + "_" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
   }
 
+  // ----- AUTH / CRYPTO -----
+  // SHA-256 hex digest with a static app pepper. Browser-native.
+  // Falls back to a small djb2 implementation only when crypto.subtle is unavailable
+  // (e.g. non-secure contexts or test environments) — production browsers always have it.
+  async function hashPassword(plain) {
+    const input = "onlymeats:v1:" + (plain || "");
+    if (typeof crypto !== "undefined" && crypto.subtle && crypto.subtle.digest) {
+      const data = new TextEncoder().encode(input);
+      const buf = await crypto.subtle.digest("SHA-256", data);
+      return "sha256:" + Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, "0")).join("");
+    }
+    // Fallback: not cryptographically secure, but stable and deterministic.
+    let h1 = 5381, h2 = 52711;
+    for (let i = 0; i < input.length; i++) {
+      const c = input.charCodeAt(i);
+      h1 = ((h1 * 33) ^ c) >>> 0;
+      h2 = ((h2 * 31) ^ c) >>> 0;
+    }
+    return "fb:" + h1.toString(16).padStart(8, "0") + h2.toString(16).padStart(8, "0");
+  }
+
+  async function verifyPassword(plain, hash) {
+    if (!hash) return false;
+    const candidate = await hashPassword(plain);
+    // Constant-time compare
+    if (candidate.length !== hash.length) return false;
+    let diff = 0;
+    for (let i = 0; i < candidate.length; i++) diff |= candidate.charCodeAt(i) ^ hash.charCodeAt(i);
+    return diff === 0;
+  }
+
+  // ----- ACCOUNTS -----
+  // We keep a roster of accounts on this device. One is "active" at a time.
+  // Each entry: { id, handle, passwordHash, profile, cooks, posts, stamps, ... snapshot }
+  function getAccounts() {
+    try {
+      const raw = localStorage.getItem("onlymeats.accounts.v1");
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveAccounts(list) {
+    try { localStorage.setItem("onlymeats.accounts.v1", JSON.stringify(list)); } catch (e) {}
+  }
+  function findAccount(handle) {
+    const h = (handle || "").trim().replace(/^@/, "").toLowerCase();
+    return getAccounts().find((a) => a.handle.toLowerCase() === h) || null;
+  }
+  function upsertAccount(account) {
+    const list = getAccounts();
+    const i = list.findIndex((a) => a.id === account.id);
+    if (i >= 0) list[i] = account; else list.push(account);
+    saveAccounts(list);
+  }
+  function snapshotAccount() {
+    if (!state.user) return;
+    upsertAccount({
+      id: state.user.id,
+      handle: state.user.handle,
+      passwordHash: state.user.passwordHash,
+      snapshot: JSON.parse(JSON.stringify(state))
+    });
+  }
+  function loadAccountSnapshot(accountId) {
+    const acc = getAccounts().find((a) => a.id === accountId);
+    if (!acc || !acc.snapshot) return false;
+    state = Object.assign(defaultState(), acc.snapshot);
+    saveState();
+    notify();
+    return true;
+  }
+
   // ----- USER / AUTH -----
 
-  function createUser(profile) {
+  async function createUser(profile) {
+    const handle = (profile.handle || "").trim().replace(/^@/, "");
+    if (!handle) throw new Error("Handle required");
+    if (findAccount(handle)) throw new Error("That handle is already claimed on this device.");
+    if (!profile.password || profile.password.length < 6) throw new Error("Password must be at least 6 characters.");
+
     const now = Date.now();
+    const passwordHash = await hashPassword(profile.password);
     const user = {
       id: uid("u"),
-      handle: profile.handle,
-      displayName: profile.displayName || profile.handle,
+      handle,
+      passwordHash,
+      displayName: profile.displayName || handle,
       email: profile.email || "",
       avatar: profile.avatar || "",
       bio: profile.bio || "",
@@ -98,6 +187,7 @@
       createdAt: now
     };
     update((s) => {
+      // If switching from an existing account, snapshot it first
       s.user = user;
       s.onboarded = true;
       // Seed sample users + posts (other folks in the network) and follow a couple
@@ -111,6 +201,39 @@
         href: "#/cook/new"
       });
     });
+    snapshotAccount();
+    return user;
+  }
+
+  // Sign in: lookup local account by handle, verify password, restore its snapshot.
+  async function signIn(handle, password) {
+    const acc = findAccount(handle);
+    if (!acc) throw new Error("No account found for @" + handle.replace(/^@/, "") + ".");
+    const ok = await verifyPassword(password, acc.passwordHash);
+    if (!ok) throw new Error("Wrong password. Try again.");
+    // If we have a current user, snapshot it before switching
+    if (state.user && state.user.id !== acc.id) snapshotAccount();
+    const loaded = loadAccountSnapshot(acc.id);
+    if (!loaded) throw new Error("Account is corrupted. Please sign up again.");
+    return state.user;
+  }
+
+  // Sign out: snapshot current account state, clear the working state, return to /welcome.
+  function signOut() {
+    if (state.user) snapshotAccount();
+    state = defaultState();
+    saveState();
+    notify();
+  }
+
+  async function changePassword(currentPassword, newPassword) {
+    if (!state.user) throw new Error("Not signed in.");
+    const ok = await verifyPassword(currentPassword, state.user.passwordHash);
+    if (!ok) throw new Error("Current password is wrong.");
+    if (!newPassword || newPassword.length < 6) throw new Error("New password must be at least 6 characters.");
+    const passwordHash = await hashPassword(newPassword);
+    update((s) => { s.user.passwordHash = passwordHash; });
+    snapshotAccount();
   }
 
   function updateUser(patch) {
@@ -408,7 +531,8 @@
 
   window.Store = {
     getState, subscribe, update, reset, uid,
-    createUser, updateUser,
+    createUser, updateUser, signIn, signOut, changePassword,
+    getAccounts, findAccount,
     startCook, updateCook, logCookNote, logCookTemp, advancePhase, completeCook, abortCook,
     createPost, toggleSizzle, addComment, deletePost,
     toggleFollow,

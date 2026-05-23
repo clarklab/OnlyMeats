@@ -74,24 +74,59 @@ body {
 }
 
 /* Inputs styled as instrument gauges */
+input.gauge-input,
+textarea.gauge-input,
+select.gauge-input,
 .gauge-input {
-  background-color: #0e0e0e;
+  background-color: #0e0e0e !important;
   border: 2px solid #5a403e;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
-  color: #e5e2e1;
+  color: #e5e2e1 !important;
+  -webkit-text-fill-color: #e5e2e1;
+  caret-color: #ffb4ac;
   font-family: "JetBrains Mono", monospace;
   font-size: 16px;
   padding: 12px 16px;
   border-radius: 2px;
   width: 100%;
   display: block;
+  color-scheme: dark;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 .gauge-input:focus {
   outline: none;
   border-color: #ffb4ac;
   box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 180, 172, 0.2);
 }
-.gauge-input::placeholder { color: #5a403e; }
+.gauge-input::placeholder { color: #aa8986; opacity: 1; }
+.gauge-input::-webkit-input-placeholder { color: #aa8986; }
+.gauge-input:-ms-input-placeholder { color: #aa8986; }
+.gauge-input:disabled { opacity: 0.7; cursor: not-allowed; color: #c6c6cb; -webkit-text-fill-color: #c6c6cb; }
+
+/* Chrome autofill — force the dark gauge look instead of pale-yellow autofill */
+.gauge-input:-webkit-autofill,
+.gauge-input:-webkit-autofill:hover,
+.gauge-input:-webkit-autofill:focus,
+.gauge-input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 1000px #0e0e0e inset, inset 0 2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-text-fill-color: #e5e2e1 !important;
+  caret-color: #ffb4ac;
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Native select needs a custom chevron + dark option list */
+select.gauge-input {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23ffb4ac' stroke-width='2' fill='none'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+}
+select.gauge-input option {
+  background-color: #131313;
+  color: #e5e2e1;
+}
 
 textarea.gauge-input { resize: vertical; min-height: 96px; line-height: 1.5; }
 
@@ -245,6 +280,229 @@ a.disabled { opacity: 0.5; pointer-events: none; }
 
 /* Tally/stats */
 .tally { font-variant-numeric: tabular-nums; }
+
+/* ---------- BBQ Pit Loader ---------- */
+/* A small charcoal pit with flickering flames, rising embers, and drifting smoke. */
+.bbq-loader {
+  position: relative;
+  display: inline-block;
+  width: 88px;
+  height: 88px;
+  flex-shrink: 0;
+}
+.bbq-loader--sm { width: 48px; height: 48px; }
+.bbq-loader--lg { width: 160px; height: 160px; }
+.bbq-loader--inline { width: 28px; height: 28px; vertical-align: middle; }
+
+/* The pit shell — heavy iron container */
+.bbq-loader__pit {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 8%;
+  height: 22%;
+  background: linear-gradient(180deg, #1f2020 0%, #0e0e0e 100%);
+  border: 2px solid #5a403e;
+  border-radius: 0 0 6px 6px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.6), 4px 4px 0 0 rgba(0, 0, 0, 1);
+}
+/* Grate ridges sitting on top of the pit */
+.bbq-loader__pit::before {
+  content: "";
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: -3px;
+  height: 3px;
+  background: repeating-linear-gradient(90deg, #aa8986 0 3px, transparent 3px 7px);
+}
+/* Rivets on the corners */
+.bbq-loader__pit::after {
+  content: "";
+  position: absolute;
+  left: 4px; right: 4px; bottom: 4px;
+  height: 3px;
+  background: radial-gradient(circle, #aa8986 2px, transparent 2.5px) left center / 6px 6px repeat-x,
+              radial-gradient(circle, #aa8986 2px, transparent 2.5px) right center / 6px 6px no-repeat;
+  opacity: 0.4;
+}
+
+/* Ember bed glowing through the grate */
+.bbq-loader__embers {
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 24%;
+  height: 6%;
+  background: radial-gradient(ellipse at 50% 100%, #ffb4ac 0%, #b22222 40%, transparent 70%);
+  filter: blur(1.5px);
+  animation: bbq-ember-glow 1.6s ease-in-out infinite alternate;
+}
+@keyframes bbq-ember-glow {
+  from { opacity: 0.55; transform: scaleY(0.9); }
+  to   { opacity: 1;    transform: scaleY(1.1); }
+}
+
+/* Flames */
+.bbq-loader__flame {
+  position: absolute;
+  bottom: 28%;
+  left: 50%;
+  width: 36%;
+  height: 50%;
+  background: radial-gradient(ellipse at 50% 100%, #ffdd99 0%, #ffb4ac 20%, #ff7755 45%, #b22222 75%, transparent 100%);
+  border-radius: 50% 50% 30% 30% / 65% 65% 35% 35%;
+  filter: blur(0.6px);
+  transform-origin: 50% 100%;
+  animation: bbq-flame 0.9s ease-in-out infinite alternate;
+}
+.bbq-loader__flame--side {
+  width: 22%;
+  height: 36%;
+  bottom: 28%;
+  opacity: 0.85;
+  animation-duration: 0.6s;
+}
+.bbq-loader__flame--left  { left: 26%; animation-delay: -0.2s; }
+.bbq-loader__flame--right { left: 74%; animation-delay: -0.4s; }
+@keyframes bbq-flame {
+  0%   { transform: translateX(-50%) scale(0.92, 1.00) skewX(-3deg); opacity: 0.92; }
+  35%  { transform: translateX(-50%) scale(1.02, 1.18) skewX(2deg);  opacity: 1; }
+  70%  { transform: translateX(-50%) scale(0.96, 1.06) skewX(-1deg); opacity: 0.96; }
+  100% { transform: translateX(-50%) scale(1.04, 1.12) skewX(3deg);  opacity: 1; }
+}
+
+/* Smoke wisps rising from the pit */
+.bbq-loader__smoke {
+  position: absolute;
+  bottom: 78%;
+  width: 8%;
+  height: 8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(229, 226, 225, 0.55) 0%, rgba(229, 226, 225, 0) 70%);
+  filter: blur(2px);
+  animation: bbq-smoke 2.4s ease-out infinite;
+  opacity: 0;
+}
+.bbq-loader__smoke--1 { left: 38%; animation-delay: 0s; }
+.bbq-loader__smoke--2 { left: 52%; animation-delay: 0.6s; }
+.bbq-loader__smoke--3 { left: 46%; animation-delay: 1.2s; }
+@keyframes bbq-smoke {
+  0%   { transform: translate(-50%, 0) scale(0.4); opacity: 0; }
+  20%  { opacity: 0.7; }
+  100% { transform: translate(-50%, -56px) scale(2.0); opacity: 0; }
+}
+
+/* Loader caption */
+.bbq-loader-stack {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.bbq-loader-stack__label {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #aa8986;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 16px;
+}
+.bbq-loader-stack__label::after {
+  content: "";
+  display: inline-block;
+  width: 14px;
+  text-align: left;
+  animation: bbq-dots 1.4s steps(4, end) infinite;
+}
+@keyframes bbq-dots {
+  0%   { content: ""; }
+  25%  { content: "."; }
+  50%  { content: ".."; }
+  75%  { content: "..."; }
+  100% { content: ""; }
+}
+/* Use CSS attr() workaround for animated dots: a span we mutate from JS */
+.bbq-loader-stack__dots::before { content: ""; }
+
+/* Splash screen overlay (used on boot & route transitions) */
+.bbq-splash {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background-color: #0e0e0e;
+  background-image:
+    radial-gradient(ellipse at 50% 70%, rgba(178, 34, 34, 0.15) 0%, transparent 60%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='nfs'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23nfs)' opacity='0.07'/%3E%3C/svg%3E");
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  animation: bbq-splash-in 240ms ease-out;
+}
+.bbq-splash--leaving { animation: bbq-splash-out 280ms ease-in forwards; }
+@keyframes bbq-splash-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bbq-splash-out { from { opacity: 1; } to { opacity: 0; } }
+
+.bbq-splash__brand {
+  border: 2px solid #ffb4ac;
+  color: #ffb4ac;
+  font-family: "Archivo Narrow", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  padding: 6px 12px;
+  transform: rotate(-2deg);
+}
+
+/* Inline-button loader (when an action button is mid-submit) */
+.btn-loader {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Ember bar — thin red progress wipe on route change */
+.ember-bar {
+  position: fixed;
+  top: 0; left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, transparent 0%, #ffb4ac 30%, #b22222 70%, transparent 100%);
+  box-shadow: 0 0 8px rgba(255, 180, 172, 0.5);
+  z-index: 10000;
+  transition: opacity 200ms ease-out;
+  animation: ember-wipe 500ms cubic-bezier(0.4, 0.0, 0.2, 1) forwards;
+}
+@keyframes ember-wipe {
+  0%   { width: 0;   opacity: 1; }
+  60%  { width: 100%; opacity: 1; }
+  100% { width: 100%; opacity: 0.4; }
+}
+
+/* Loading state overlay used inside views that need a pause */
+.view-loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 64px 24px;
+  gap: 16px;
+  min-height: 240px;
+}
+
+/* Reduced motion fallback — keep visual presence but drop animations */
+@media (prefers-reduced-motion: reduce) {
+  .bbq-loader__flame, .bbq-loader__embers, .bbq-loader__smoke,
+  .bbq-splash, .bbq-splash--leaving, .ember-bar { animation: none; }
+  .bbq-loader__smoke { opacity: 0.3; }
+}
 
 /* Counter chip on bottom nav (notifications) */
 .nav-badge {

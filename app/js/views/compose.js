@@ -83,23 +83,30 @@
     verifiedToggle.addEventListener("click", () => { verified = !verified; renderVerifiedToggle(); });
     renderVerifiedToggle();
 
-    function submit() {
+    const submitBtn = h("button", {
+      class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[20px] py-4 rounded uppercase tracking-wider mt-md"
+    }, "Post To Feed");
+
+    submitBtn.addEventListener("click", () => {
       const title = (titleInput.value || "").trim();
       if (!title) return toast("Add a title", "danger");
-      const newPost = window.Store.createPost({
-        title,
-        species: speciesSelect.value || null,
-        cut: cutSelect.value || null,
-        wood: woodInput.value || "",
-        grade: gradeInput.value || "",
-        body: bodyInput.value || "",
-        image: imageData || undefined,
-        verified,
-        cookId: cook ? cook.id : null
+      window.UI.withButtonLoading(submitBtn, "Sending", async () => {
+        await new Promise((r) => setTimeout(r, 700));
+        const newPost = window.Store.createPost({
+          title,
+          species: speciesSelect.value || null,
+          cut: cutSelect.value || null,
+          wood: woodInput.value || "",
+          grade: gradeInput.value || "",
+          body: bodyInput.value || "",
+          image: imageData || undefined,
+          verified,
+          cookId: cook ? cook.id : null
+        });
+        toast("Posted to the feed", "success");
+        window.Router.navigate("/post/" + newPost.id);
       });
-      toast("Posted to the feed", "success");
-      window.Router.navigate("/post/" + newPost.id);
-    }
+    });
 
     main.appendChild(window.UI.sectionHeader({ title: "New Post" }));
 
@@ -158,10 +165,7 @@
         h("span", { class: "font-technical-data text-technical-data text-on-surface-variant" }, "Mark as a verified cook?"),
         verifiedToggle
       ),
-      h("button", {
-        class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[20px] py-4 rounded uppercase tracking-wider mt-md",
-        onclick: submit
-      }, "Post To Feed")
+      submitBtn
     ));
   }
 

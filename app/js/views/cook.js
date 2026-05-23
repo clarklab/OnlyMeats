@@ -87,7 +87,11 @@
     // Pre-fill defaults
     if (!pitInput.value) pitInput.value = 225;
 
-    function start() {
+    const startBtn = h("button", {
+      class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[22px] py-4 rounded uppercase tracking-wider mt-md flex items-center justify-center gap-2"
+    }, icon("local_fire_department", { fill: true }), "Light The Fire");
+
+    startBtn.addEventListener("click", () => {
       const title = (titleInput.value || "").trim();
       const species = speciesSelect.value;
       const cut = cutSelect.value;
@@ -101,14 +105,17 @@
       if (!cut) return toast("Pick a cut", "danger");
       if (!targetF) return toast("Set a target temp", "danger");
 
-      const cook = window.Store.startCook({
-        title: title || (D.CUTS.find((c) => c.id === cut).name),
-        species, cut, wood, hardware,
-        weightLbs, targetF, pitTempF, internalF: 0
+      window.UI.withButtonLoading(startBtn, "Lighting", async () => {
+        await new Promise((r) => setTimeout(r, 800));
+        const cook = window.Store.startCook({
+          title: title || (D.CUTS.find((c) => c.id === cut).name),
+          species, cut, wood, hardware,
+          weightLbs, targetF, pitTempF, internalF: 0
+        });
+        toast("Cook started — fire it up", "success");
+        window.Router.navigate("/cook/" + cook.id);
       });
-      toast("Cook started — fire it up", "success");
-      window.Router.navigate("/cook/" + cook.id);
-    }
+    });
 
     main.appendChild(h("div", { class: "flex flex-col gap-md" },
       h("label", { class: "flex flex-col gap-2" },
@@ -149,10 +156,7 @@
           pitInput
         )
       ),
-      h("button", {
-        class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[22px] py-4 rounded uppercase tracking-wider mt-md flex items-center justify-center gap-2",
-        onclick: start
-      }, icon("local_fire_department", { fill: true }), "Light The Fire")
+      startBtn
     ));
   }
 

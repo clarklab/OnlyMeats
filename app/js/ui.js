@@ -364,10 +364,91 @@
     );
   }
 
+  // ---------- BBQ Pit Loader ----------
+  // Build a self-contained loader DOM node. Sizes: "sm" (48px), "md" (88px, default), "lg" (160px).
+  function bbqLoader(opts) {
+    opts = opts || {};
+    const size = opts.size || "md";
+    const cls = "bbq-loader " + (size === "sm" ? "bbq-loader--sm" : size === "lg" ? "bbq-loader--lg" : size === "inline" ? "bbq-loader--inline" : "");
+    const loader = h("div", { class: cls, role: "status", "aria-label": opts.label || "Loading" },
+      h("div", { class: "bbq-loader__smoke bbq-loader__smoke--1" }),
+      h("div", { class: "bbq-loader__smoke bbq-loader__smoke--2" }),
+      h("div", { class: "bbq-loader__smoke bbq-loader__smoke--3" }),
+      h("div", { class: "bbq-loader__flame bbq-loader__flame--side bbq-loader__flame--left" }),
+      h("div", { class: "bbq-loader__flame bbq-loader__flame--side bbq-loader__flame--right" }),
+      h("div", { class: "bbq-loader__flame" }),
+      h("div", { class: "bbq-loader__embers" }),
+      h("div", { class: "bbq-loader__pit" })
+    );
+    if (opts.label) {
+      return h("div", { class: "bbq-loader-stack" },
+        loader,
+        h("span", { class: "bbq-loader-stack__label" }, opts.label)
+      );
+    }
+    return loader;
+  }
+
+  // Full-screen splash overlay. Resolves the returned promise once `min` ms have passed.
+  function bbqSplash(opts) {
+    opts = opts || {};
+    const min = opts.minMs || 0;
+    const label = opts.label || "Lighting the pit";
+    const el = h("div", { class: "bbq-splash", role: "status", "aria-live": "polite" },
+      h("div", { class: "bbq-splash__brand" }, "ONLYMEATS"),
+      bbqLoader({ size: "lg" }),
+      h("span", { class: "bbq-loader-stack__label" }, label)
+    );
+    document.body.appendChild(el);
+    const start = Date.now();
+    return {
+      element: el,
+      dismiss() {
+        const remaining = Math.max(0, min - (Date.now() - start));
+        setTimeout(() => {
+          el.classList.add("bbq-splash--leaving");
+          setTimeout(() => el.remove(), 280);
+        }, remaining);
+      }
+    };
+  }
+
+  // Swap a button's contents into a loading state. Returns a restore() fn.
+  function buttonLoading(btn, message) {
+    if (!btn) return () => {};
+    const prev = btn.innerHTML;
+    const prevDisabled = btn.disabled;
+    btn.disabled = true;
+    btn.classList.add("btn-loader");
+    btn.innerHTML = "";
+    btn.appendChild(bbqLoader({ size: "inline" }));
+    btn.appendChild(document.createTextNode(message || "Working..."));
+    return () => {
+      btn.disabled = prevDisabled;
+      btn.classList.remove("btn-loader");
+      btn.innerHTML = prev;
+    };
+  }
+
+  // Run an async action with a button loader. Always restores, surfaces toast on error.
+  async function withButtonLoading(btn, message, action) {
+    const restore = buttonLoading(btn, message);
+    try {
+      const result = await Promise.resolve(action());
+      return result;
+    } catch (e) {
+      console.error("[withButtonLoading]", e);
+      toast(e && e.message ? e.message : "Something went wrong", "danger");
+    } finally {
+      restore();
+    }
+  }
+
   window.UI = {
     h, escapeHtml, icon, avatar, toast, openModal, confirm, emptyState,
     topBar, bottomNav, openDrawer, closeDrawer, pageShell, sectionHeader,
     rivetedTag, statPlate, segmented,
-    fmtTime, fmtDuration, fmtDate
+    fmtTime, fmtDuration, fmtDate,
+    bbqLoader, bbqSplash, buttonLoading, withButtonLoading
   };
 })();
