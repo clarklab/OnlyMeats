@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta name="theme-color" content="#131313" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>ONLYMEATS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo+Narrow:ital,wght@0,400..700;1,400..700&family=Hanken+Grotesk:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "error-container": "#93000a",
+            "on-secondary-container": "#b5b4ba",
+            "surface-container": "#1f2020",
+            "on-tertiary-fixed-variant": "#454747",
+            "secondary-fixed-dim": "#c6c6cb",
+            "on-primary-fixed-variant": "#92030f",
+            "surface": "#131313",
+            "outline-variant": "#5a403e",
+            "on-tertiary-container": "#d4d5d5",
+            "on-primary-container": "#ffc8c2",
+            "surface-container-lowest": "#0e0e0e",
+            "inverse-primary": "#b52424",
+            "on-secondary": "#2f3034",
+            "secondary-fixed": "#e3e2e7",
+            "on-secondary-fixed-variant": "#46464b",
+            "secondary-container": "#46464b",
+            "primary-fixed-dim": "#ffb4ac",
+            "tertiary-fixed-dim": "#c6c6c7",
+            "on-tertiary": "#2f3131",
+            "surface-variant": "#353535",
+            "inverse-surface": "#e5e2e1",
+            "on-error": "#690005",
+            "surface-container-highest": "#353535",
+            "background": "#131313",
+            "on-error-container": "#ffdad6",
+            "inverse-on-surface": "#303030",
+            "on-primary-fixed": "#410003",
+            "on-secondary-fixed": "#1a1b1f",
+            "on-surface": "#e5e2e1",
+            "on-surface-variant": "#e2beba",
+            "primary": "#ffb4ac",
+            "outline": "#aa8986",
+            "surface-container-high": "#2a2a2a",
+            "tertiary-container": "#5b5c5c",
+            "primary-container": "#b22222",
+            "on-primary": "#690007",
+            "surface-tint": "#ffb4ac",
+            "primary-fixed": "#ffdad6",
+            "secondary": "#c6c6cb",
+            "surface-bright": "#393939",
+            "on-tertiary-fixed": "#1a1c1c",
+            "surface-container-low": "#1b1c1c",
+            "tertiary-fixed": "#e2e2e2",
+            "tertiary": "#c6c6c7",
+            "error": "#ffb4ab",
+            "on-background": "#e5e2e1",
+            "surface-dim": "#131313"
+          },
+          borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
+          spacing: {
+            sm: "12px", base: "8px", md: "24px",
+            "margin-desktop": "64px", "margin-mobile": "20px",
+            lg: "48px", xl: "80px", xs: "4px", gutter: "16px"
+          },
+          fontFamily: {
+            "technical-data": ["JetBrains Mono", "monospace"],
+            "body-md": ["Hanken Grotesk", "sans-serif"],
+            "body-lg": ["Hanken Grotesk", "sans-serif"],
+            "headline-lg": ["Archivo Narrow", "sans-serif"],
+            "headline-md": ["Archivo Narrow", "sans-serif"],
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "display-xl": ["Archivo Narrow", "sans-serif"],
+            "headline-lg-mobile": ["Archivo Narrow", "sans-serif"]
+          },
+          fontSize: {
+            "technical-data": ["14px", { lineHeight: "1.4", fontWeight: "500" }],
+            "body-md": ["16px", { lineHeight: "1.5", fontWeight: "400" }],
+            "body-lg": ["18px", { lineHeight: "1.6", fontWeight: "400" }],
+            "headline-lg": ["40px", { lineHeight: "1.1", fontWeight: "700" }],
+            "headline-md": ["24px", { lineHeight: "1.2", fontWeight: "700" }],
+            "label-caps": ["12px", { lineHeight: "1.0", letterSpacing: "0.1em", fontWeight: "600" }],
+            "display-xl": ["64px", { lineHeight: "1.0", letterSpacing: "-0.02em", fontWeight: "800" }],
+            "headline-lg-mobile": ["32px", { lineHeight: "1.1", fontWeight: "700" }]
+          }
+        }
+      }
+    };
+  </script>
+
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body class="bg-background text-on-background min-h-screen antialiased noise-bg">
+  <div id="app-root" class="min-h-[100dvh] flex flex-col"></div>
+  <div id="toast-root" class="fixed top-20 left-0 right-0 z-[200] flex flex-col items-center gap-2 pointer-events-none px-4"></div>
+  <div id="modal-root"></div>
+
+  <!-- Data + state -->
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/router.js"></script>
+  <script src="js/ui.js"></script>
+
+  <!-- Views -->
+  <script src="js/views/onboarding.js"></script>
+  <script src="js/views/feed.js"></script>
+  <script src="js/views/compose.js"></script>
+  <script src="js/views/post.js"></script>
+  <script src="js/views/passport.js"></script>
+  <script src="js/views/map.js"></script>
+  <script src="js/views/profile.js"></script>
+  <script src="js/views/cook.js"></script>
+  <script src="js/views/cooks.js"></script>
+  <script src="js/views/notifications.js"></script>
+  <script src="js/views/settings.js"></script>
+  <script src="js/views/friends.js"></script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
