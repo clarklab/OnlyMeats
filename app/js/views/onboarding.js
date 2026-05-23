@@ -10,6 +10,7 @@
     handle: "",
     displayName: "",
     email: "",
+    password: "",
     avatar: "",
     bio: "",
     species: [],
@@ -18,7 +19,7 @@
     spices: []
   };
   function resetDraft() {
-    draft = { handle: "", displayName: "", email: "", avatar: "", bio: "", species: [], hardware: [], woods: [], spices: [] };
+    draft = { handle: "", displayName: "", email: "", password: "", avatar: "", bio: "", species: [], hardware: [], woods: [], spices: [] };
   }
 
   function shell(stepIndex, totalSteps, body) {
@@ -74,17 +75,89 @@
         h("div", { class: "flex flex-col gap-sm max-w-md w-full mx-auto pb-md" },
           h("button", {
             class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[20px] py-4 rounded uppercase tracking-wider",
-            onclick: () => { resetDraft(); window.Router.navigate("/onboarding/handle"); }
+            onclick: () => { resetDraft(); window.Router.navigate("/onboarding/intro"); }
           }, "Light The Fire"),
           h("button", {
             class: "brutal-btn bg-surface border-2 border-outline text-on-surface font-headline-md text-[18px] py-3 rounded uppercase tracking-wider",
             onclick: () => window.Router.navigate("/signin")
           }, "I Have An Account"),
-          h("p", { class: "font-technical-data text-technical-data text-outline text-center mt-sm" }, "No login required for the demo. Your data stays on this device.")
+          h("p", { class: "font-technical-data text-technical-data text-outline text-center mt-sm" }, "Free to join. Your passport, cooks and stamps follow your handle.")
         )
       )
     );
     root.appendChild(main);
+  }
+
+  // ----- /onboarding/intro — explain what ONLYMEATS is and how it works -----
+  function renderIntro() {
+    const pillars = [
+      {
+        icon: "outdoor_grill",
+        kicker: "Pillar 01",
+        title: "Log Every Cook",
+        body: "Punch in your cut, wood and target temp. We run the timer, plot pit and internal trends, flag the stall, walk you through wrap → rest → pull."
+      },
+      {
+        icon: "workspace_premium",
+        kicker: "Pillar 02",
+        title: "Earn Passport Stamps",
+        body: "Every cut you nail unlocks a stamp on your Meat Passport. Hit milestones — first cook, 10 cooks, century pound — and climb from Ember to Iron Legend."
+      },
+      {
+        icon: "local_fire_department",
+        kicker: "Pillar 03",
+        title: "Sizzle The Feed",
+        body: "Share your cooks with other pitmasters. Sizzle (like), comment, follow. Browse the Cut Map for target temps and rest times on 20+ cuts across beef, pork, poultry & lamb."
+      },
+      {
+        icon: "shield",
+        kicker: "Pillar 04",
+        title: "Built For Outside",
+        body: "Heavy dark UI to cut glare at the pit. Big tap targets for gloves. Works on phone, tablet or desktop — sign in with your handle and password to pick up where you left off."
+      }
+    ];
+
+    const body = h("div", { class: "flex flex-col gap-md flex-grow" },
+      h("div", { class: "pt-md" },
+        h("h1", { class: "font-headline-lg-mobile text-headline-lg-mobile text-primary uppercase tracking-tight" }, "How it works"),
+        h("p", { class: "font-body-md text-body-md text-on-surface-variant mt-sm" },
+          "ONLYMEATS is a check-in app for cooks who live by the smoke. Here's the deal."
+        )
+      ),
+      h("div", { class: "flex flex-col gap-sm" },
+        ...pillars.map((p, idx) => h("div", {
+          class: "border-2 border-outline-variant bg-surface-container p-md shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex gap-md items-start"
+        },
+          h("div", { class: "w-12 h-12 bg-surface-container-lowest border-2 border-primary flex items-center justify-center shrink-0 rounded" },
+            icon(p.icon, { class: "text-primary text-[28px]", fill: true })
+          ),
+          h("div", { class: "flex flex-col gap-1 min-w-0" },
+            h("span", { class: "font-label-caps text-label-caps text-outline" }, p.kicker.toUpperCase()),
+            h("h2", { class: "font-headline-md text-headline-md text-on-surface uppercase tracking-tight" }, p.title),
+            h("p", { class: "font-body-md text-body-md text-on-surface-variant" }, p.body)
+          )
+        ))
+      ),
+      h("div", { class: "border-2 border-dashed border-outline-variant p-sm flex items-center gap-sm" },
+        icon("shield", { class: "text-outline shrink-0", fill: true }),
+        h("p", { class: "font-technical-data text-technical-data text-on-surface-variant" },
+          "Your account is keyed to your handle and a password you set. Everything you log, cook and earn lives under that account."
+        )
+      ),
+      h("div", { class: "flex-grow" }),
+      h("div", { class: "grid grid-cols-2 gap-sm" },
+        h("button", {
+          class: "brutal-btn bg-surface border-2 border-outline text-on-surface font-headline-md text-[18px] py-3 rounded",
+          onclick: () => window.Router.navigate("/welcome")
+        }, "Back"),
+        h("button", {
+          class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-3 rounded",
+          onclick: () => window.Router.navigate("/onboarding/handle")
+        }, "Got It, Forge Me")
+      )
+    );
+
+    shell(0, 9, body);
   }
 
   // ----- /signin -----
@@ -92,7 +165,52 @@
     const root = document.getElementById("app-root");
     root.innerHTML = "";
 
-    const handleInput = h("input", { type: "text", class: "gauge-input", placeholder: "@your_handle", autocapitalize: "none", autocomplete: "username" });
+    const handleInput = h("input", { type: "text", class: "gauge-input", placeholder: "your_handle", autocapitalize: "none", autocomplete: "username", spellcheck: "false" });
+    const passwordInput = h("input", { type: "password", class: "gauge-input", placeholder: "••••••••", autocomplete: "current-password" });
+    const errorBox = h("div", { class: "hidden border-2 border-error bg-error-container/30 text-on-error-container p-sm font-technical-data text-technical-data" });
+
+    function showError(msg) {
+      errorBox.textContent = msg;
+      errorBox.classList.remove("hidden");
+    }
+    function clearError() { errorBox.classList.add("hidden"); errorBox.textContent = ""; }
+
+    const signInBtn = h("button", {
+      class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-3 rounded mt-md w-full",
+      type: "submit"
+    }, "Sign In");
+
+    async function submit() {
+      clearError();
+      const handle = (handleInput.value || "").trim().replace(/^@/, "");
+      const pw = passwordInput.value || "";
+      if (!handle) return showError("Enter your handle.");
+      if (!pw) return showError("Enter your password.");
+      await window.UI.withButtonLoading(signInBtn, "Verifying", async () => {
+        try {
+          await window.Store.signIn(handle, pw);
+          toast("Signed in as @" + handle, "success");
+          window.Router.navigate("/feed");
+        } catch (e) {
+          showError(e.message || "Sign in failed.");
+        }
+      });
+    }
+    signInBtn.addEventListener("click", (e) => { e.preventDefault(); submit(); });
+    passwordInput.addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); submit(); } });
+
+    const formEl = h("form", { class: "flex flex-col gap-md", onsubmit: (e) => { e.preventDefault(); submit(); } },
+      h("label", { class: "flex flex-col gap-2" },
+        h("span", { class: "font-label-caps text-label-caps text-on-surface-variant" }, "HANDLE"),
+        handleInput
+      ),
+      h("label", { class: "flex flex-col gap-2" },
+        h("span", { class: "font-label-caps text-label-caps text-on-surface-variant" }, "PASSWORD"),
+        passwordInput
+      ),
+      errorBox,
+      signInBtn
+    );
 
     const main = h("main", { class: "min-h-[100dvh] flex flex-col px-margin-mobile pt-safe pb-md w-full items-center" },
       h("div", { class: "w-full max-w-md flex flex-col gap-md flex-grow pt-md view-enter" },
@@ -103,25 +221,11 @@
         ),
         h("div", { class: "pt-lg flex flex-col gap-md" },
           h("h1", { class: "font-headline-lg-mobile text-headline-lg-mobile text-primary uppercase tracking-tight" }, "Sign In"),
-          h("p", { class: "font-body-md text-body-md text-on-surface-variant" }, "Enter your handle to resume. (Demo: any handle works — no password.)"),
-          h("label", { class: "flex flex-col gap-2 mt-sm" },
-            h("span", { class: "font-label-caps text-label-caps text-on-surface-variant" }, "HANDLE"),
-            handleInput
-          ),
-          h("button", {
-            class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-3 rounded mt-md",
-            onclick: () => {
-              const v = (handleInput.value || "").trim().replace(/^@/, "");
-              if (!v) return toast("Enter a handle", "danger");
-              draft = { handle: v, displayName: v, email: "", avatar: "", bio: "", species: [], hardware: [], woods: [], spices: [] };
-              window.Store.createUser(draft);
-              toast("Signed in as @" + v, "success");
-              window.Router.navigate("/feed");
-            }
-          }, "Step In"),
+          h("p", { class: "font-body-md text-body-md text-on-surface-variant" }, "Back to the pit. Enter your handle and password to resume."),
+          formEl,
           h("p", { class: "font-body-md text-body-md text-on-surface-variant pt-md text-center" },
-            "New here? ",
-            h("a", { href: "#/onboarding/handle", class: "text-primary underline" }, "Start onboarding.")
+            "New to ONLYMEATS? ",
+            h("a", { href: "#/onboarding/intro", class: "text-primary underline" }, "Create your account.")
           )
         )
       )
@@ -140,10 +244,13 @@
       if (!handle || !/^[a-z0-9_]{2,24}$/i.test(handle)) {
         return toast("Handle: 2–24 chars, letters/numbers/_", "danger");
       }
+      if (window.Store.findAccount(handle)) {
+        return toast("That handle is already taken on this device.", "danger");
+      }
       draft.handle = handle;
       draft.displayName = (nameInput.value || "").trim() || handle;
       draft.email = (emailInput.value || "").trim();
-      window.Router.navigate("/onboarding/avatar");
+      window.Router.navigate("/onboarding/password");
     }
 
     const body = h("div", { class: "flex flex-col gap-md flex-grow" },
@@ -171,7 +278,96 @@
       }, "Continue")
     );
 
-    shell(0, 6, body);
+    shell(1, 9, body);
+  }
+
+  // ----- /onboarding/password -----
+  function renderPassword() {
+    const pwInput = h("input", {
+      type: "password", class: "gauge-input", placeholder: "At least 6 characters",
+      autocomplete: "new-password", value: draft.password
+    });
+    const pwConfirm = h("input", {
+      type: "password", class: "gauge-input", placeholder: "Type it again",
+      autocomplete: "new-password", value: draft.password
+    });
+    const errorBox = h("div", { class: "hidden border-2 border-error bg-error-container/30 text-on-error-container p-sm font-technical-data text-technical-data" });
+
+    function strengthScore(pw) {
+      let score = 0;
+      if (pw.length >= 6) score++;
+      if (pw.length >= 10) score++;
+      if (/[A-Z]/.test(pw) && /[a-z]/.test(pw)) score++;
+      if (/\d/.test(pw)) score++;
+      if (/[^A-Za-z0-9]/.test(pw)) score++;
+      return Math.min(score, 4);
+    }
+    const strengthBar = h("div", { class: "flex gap-1 w-full mt-1" },
+      ...Array.from({ length: 4 }, () => h("div", { class: "h-1 flex-1 bg-surface-variant" }))
+    );
+    const strengthLabel = h("span", { class: "font-technical-data text-[12px] text-outline" }, "Pick a password");
+    function paintStrength() {
+      const s = strengthScore(pwInput.value || "");
+      const labels = ["Weak", "Okay", "Good", "Strong", "Iron-clad"];
+      const colors = ["bg-error", "bg-error", "bg-primary", "bg-primary", "bg-primary"];
+      Array.from(strengthBar.children).forEach((bar, i) => {
+        bar.className = "h-1 flex-1 " + (i < s ? colors[s] : "bg-surface-variant");
+      });
+      strengthLabel.textContent = "Strength: " + labels[s];
+    }
+    pwInput.addEventListener("input", paintStrength);
+    paintStrength();
+
+    function submit() {
+      errorBox.classList.add("hidden");
+      const pw = pwInput.value || "";
+      const confirm = pwConfirm.value || "";
+      if (pw.length < 6) {
+        errorBox.textContent = "Password must be at least 6 characters.";
+        errorBox.classList.remove("hidden");
+        return;
+      }
+      if (pw !== confirm) {
+        errorBox.textContent = "Passwords don't match.";
+        errorBox.classList.remove("hidden");
+        return;
+      }
+      draft.password = pw;
+      window.Router.navigate("/onboarding/avatar");
+    }
+
+    const body = h("div", { class: "flex flex-col gap-md flex-grow" },
+      h("div", { class: "pt-md" },
+        h("h1", { class: "font-headline-lg-mobile text-headline-lg-mobile text-primary uppercase tracking-tight" }, "Set a password"),
+        h("p", { class: "font-body-md text-body-md text-on-surface-variant mt-sm" },
+          "You'll use this with @" + (draft.handle || "your_handle") + " to sign back in."
+        )
+      ),
+      h("label", { class: "flex flex-col gap-2 mt-md" },
+        h("span", { class: "font-label-caps text-label-caps text-on-surface-variant" }, "PASSWORD"),
+        pwInput,
+        strengthBar,
+        strengthLabel
+      ),
+      h("label", { class: "flex flex-col gap-2" },
+        h("span", { class: "font-label-caps text-label-caps text-on-surface-variant" }, "CONFIRM PASSWORD"),
+        pwConfirm
+      ),
+      errorBox,
+      h("div", { class: "flex-grow" }),
+      h("div", { class: "grid grid-cols-2 gap-sm" },
+        h("button", {
+          class: "brutal-btn bg-surface border-2 border-outline text-on-surface font-headline-md text-[18px] py-3 rounded",
+          onclick: () => window.Router.navigate("/onboarding/handle")
+        }, "Back"),
+        h("button", {
+          class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-3 rounded",
+          onclick: submit
+        }, "Continue")
+      )
+    );
+
+    shell(2, 9, body);
   }
 
   // ----- /onboarding/avatar -----
@@ -245,7 +441,7 @@
       h("div", { class: "grid grid-cols-2 gap-sm" },
         h("button", {
           class: "brutal-btn bg-surface border-2 border-outline text-on-surface font-headline-md text-[18px] py-3 rounded",
-          onclick: () => window.Router.navigate("/onboarding/handle")
+          onclick: () => window.Router.navigate("/onboarding/password")
         }, "Back"),
         h("button", {
           class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-3 rounded",
@@ -254,7 +450,7 @@
       )
     );
 
-    shell(1, 6, body);
+    shell(3, 9, body);
   }
 
   // ----- Multi-select helper -----
@@ -309,7 +505,7 @@
       )
     );
 
-    shell(2, 6, body);
+    shell(4, 9, body);
   }
 
   // ----- /onboarding/hardware -----
@@ -360,7 +556,7 @@
       )
     );
 
-    shell(3, 6, body);
+    shell(5, 9, body);
   }
 
   // ----- /onboarding/wood -----
@@ -407,7 +603,7 @@
       )
     );
 
-    shell(4, 6, body);
+    shell(6, 9, body);
   }
 
   // ----- /onboarding/spice -----
@@ -470,13 +666,29 @@
       )
     );
 
-    shell(5, 6, body);
+    shell(7, 9, body);
   }
 
   // ----- /onboarding/bio -----
   function renderBio() {
     const bioInput = h("textarea", { class: "gauge-input", placeholder: "Low and slow believer. Post Oak only. Likes brisket.", maxlength: 200 }, draft.bio || "");
     bioInput.value = draft.bio || "";
+
+    const forgeBtn = h("button", {
+      class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-3 rounded"
+    }, "Forge Account");
+    forgeBtn.addEventListener("click", () => {
+      draft.bio = (bioInput.value || "").trim();
+      if (!draft.password || draft.password.length < 6) {
+        toast("Set a password first.", "danger");
+        return window.Router.navigate("/onboarding/password");
+      }
+      window.UI.withButtonLoading(forgeBtn, "Forging", async () => {
+        await new Promise((r) => setTimeout(r, 700));
+        await window.Store.createUser(draft);
+        window.Router.navigate("/onboarding/done");
+      });
+    });
 
     const body = h("div", { class: "flex flex-col gap-md flex-grow" },
       h("div", { class: "pt-md" },
@@ -504,18 +716,11 @@
           class: "brutal-btn bg-surface border-2 border-outline text-on-surface font-headline-md text-[18px] py-3 rounded",
           onclick: () => window.Router.navigate("/onboarding/spice")
         }, "Back"),
-        h("button", {
-          class: "brutal-btn bg-primary-container border-2 border-primary text-on-primary-container font-headline-md text-[18px] py-3 rounded",
-          onclick: () => {
-            draft.bio = (bioInput.value || "").trim();
-            window.Store.createUser(draft);
-            window.Router.navigate("/onboarding/done");
-          }
-        }, "Forge Account")
+        forgeBtn
       )
     );
 
-    shell(6, 6, body);
+    shell(8, 9, body);
   }
 
   // ----- /onboarding/done -----
@@ -556,7 +761,9 @@
   window.Router.register("/welcome", renderWelcome);
   window.Router.register("/welcome/restart", () => { window.Store.reset(); resetDraft(); window.Router.navigate("/welcome", { replace: true }); });
   window.Router.register("/signin", renderSignin);
+  window.Router.register("/onboarding/intro", renderIntro);
   window.Router.register("/onboarding/handle", renderHandle);
+  window.Router.register("/onboarding/password", renderPassword);
   window.Router.register("/onboarding/avatar", renderAvatar);
   window.Router.register("/onboarding/species", renderSpecies);
   window.Router.register("/onboarding/hardware", renderHardware);
