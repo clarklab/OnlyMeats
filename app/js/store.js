@@ -52,6 +52,27 @@
   let state = loadState();
   const subscribers = new Set();
 
+  // --- Migration: accounts created before the auth system existed ---
+  // If the user is logged in (state.user set, onboarded) but has no entry
+  // in the accounts roster, register them now so sign-in works after a
+  // sign-out or page reload.
+  (function migratePreAuthAccounts() {
+    if (!state.user || !state.onboarded) return;
+    try {
+      const roster = getAccounts();
+      const exists = roster.find((a) => a.id === state.user.id || a.handle.toLowerCase() === (state.user.handle || "").toLowerCase());
+      if (!exists) {
+        upsertAccount({
+          id: state.user.id,
+          handle: state.user.handle,
+          passwordHash: state.user.passwordHash || "",
+          snapshot: JSON.parse(JSON.stringify(state))
+        });
+        console.log("[store] migrated pre-auth account @" + state.user.handle);
+      }
+    } catch (e) { console.warn("[store] migration skipped", e); }
+  })();
+
   function notify() {
     subscribers.forEach((fn) => {
       try { fn(state); } catch (e) { console.error(e); }
@@ -209,12 +230,25 @@
   async function signIn(handle, password) {
     const acc = findAccount(handle);
     if (!acc) throw new Error("No account found for @" + handle.replace(/^@/, "") + ".");
-    const ok = await verifyPassword(password, acc.passwordHash);
-    if (!ok) throw new Error("Wrong password. Try again.");
+    // Accounts migrated from pre-auth have an empty passwordHash — let them
+    // in with any password, then set the supplied one as their new hash so
+    // future logins are verified.
+    if (acc.passwordHash) {
+      const ok = await verifyPassword(password, acc.passwordHash);
+      if (!ok) throw new Error("Wrong password. Try again.");
+    } else if (password) {
+      acc.passwordHash = await hashPassword(password);
+      saveAccounts(getAccounts().map((a) => a.id === acc.id ? acc : a));
+    }
     // If we have a current user, snapshot it before switching
     if (state.user && state.user.id !== acc.id) snapshotAccount();
     const loaded = loadAccountSnapshot(acc.id);
     if (!loaded) throw new Error("Account is corrupted. Please sign up again.");
+    // Ensure the restored user carries the password hash forward
+    if (!state.user.passwordHash && acc.passwordHash) {
+      state.user.passwordHash = acc.passwordHash;
+      saveState();
+    }
     return state.user;
   }
 
@@ -228,8 +262,11 @@
 
   async function changePassword(currentPassword, newPassword) {
     if (!state.user) throw new Error("Not signed in.");
-    const ok = await verifyPassword(currentPassword, state.user.passwordHash);
-    if (!ok) throw new Error("Current password is wrong.");
+    // Pre-auth accounts have no password — skip current-password check for them
+    if (state.user.passwordHash) {
+      const ok = await verifyPassword(currentPassword, state.user.passwordHash);
+      if (!ok) throw new Error("Current password is wrong.");
+    }
     if (!newPassword || newPassword.length < 6) throw new Error("New password must be at least 6 characters.");
     const passwordHash = await hashPassword(newPassword);
     update((s) => { s.user.passwordHash = passwordHash; });
